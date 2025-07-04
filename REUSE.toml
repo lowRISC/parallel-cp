@@ -1,0 +1,7 @@
+version = 1
+
+[[annotations]]
+path = ["Cargo.lock"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "lowRISC contributors"
+SPDX-License-Identifier = "MIT or Apache-2.0"
