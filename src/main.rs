@@ -24,7 +24,11 @@ static OVERALL_PROGRESS: LazyLock<ProgressBar> =
 
 thread_local! {
     static LOCAL_PROGRESS: ProgressBar = {
-        PROGRESS.insert_before(&OVERALL_PROGRESS, ProgressBar::new_spinner())
+        if rayon::current_thread_index().is_some() {
+            PROGRESS.insert_before(&OVERALL_PROGRESS, ProgressBar::new_spinner())
+        } else {
+            ProgressBar::hidden()
+        }
     };
 }
 
@@ -69,6 +73,11 @@ fn copy(path: &Path, file_type: FileType) -> std::io::Result<()> {
 fn main() {
     LazyLock::force(&OPTIONS);
 
-    let file_type = std::fs::metadata(&OPTIONS.src).unwrap().file_type();
-    copy("".as_ref(), file_type).unwrap();
+    rayon::scope(|s| {
+        s.spawn(|_| {
+            OVERALL_PROGRESS.inc_length(1);
+            let file_type = std::fs::metadata(&OPTIONS.src).unwrap().file_type();
+            copy("".as_ref(), file_type).unwrap();
+        });
+    });
 }
