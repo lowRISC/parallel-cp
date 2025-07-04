@@ -6,6 +6,8 @@ SPDX-License-Identifier: MIT OR Apache-2.0
 
 # parallel-cp
 
+This project has been developed to meet lowRISC's internal need and is *not* supported by lowRISC.
+
 This is a very simple tool that performs parallel local file copy.
 
 It's aimed at speeding up copying when one of the locally mounted file system is actually over network and therefore has high latency and `cp` or `rsync` is using tiny fraction of your network bandwidth or disk IO.
