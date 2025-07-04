@@ -1,0 +1,20 @@
+# Copyright lowRISC contributors.
+#
+# SPDX-License-Identifier: MIT OR Apache-2.0
+
+name: CI
+
+on:
+  - push
+  - pull_request
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run tests
+      run: cargo test --release --verbose

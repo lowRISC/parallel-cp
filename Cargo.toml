@@ -1,0 +1,13 @@
+# Copyright lowRISC contributors.
+#
+# SPDX-License-Identifier: MIT OR Apache-2.0
+
+[package]
+name = "parallel-cp"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+indicatif = "0.18"
+rayon = "1.10.0"
